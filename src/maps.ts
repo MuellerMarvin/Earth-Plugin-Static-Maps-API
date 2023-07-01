@@ -1,12 +1,12 @@
 import { Request, Response, MapOptions, RenderOptions, Coordinates } from './types';
-var fs = require('fs');
-var path = require('path');
-var mbgl = require('@maplibre/maplibre-gl-native');
-var sharp = require('sharp');
-var axios = require('axios');
+const fs = require('fs');
+const path = require('path');
+const mbgl = require('@maplibre/maplibre-gl-native');
+const sharp = require('sharp');
+const axios = require('axios');
 
 export function getMapImage(coordinates: Coordinates) {
-    var options = {
+    let options = {
         request: function(req: any, callback: (error: any, response: any) => void) {
         // Log the request URL
         console.log('Request URL:', req.url);
@@ -24,14 +24,14 @@ export function getMapImage(coordinates: Coordinates) {
         ratio: 1
     };
 
-    var map = new mbgl.Map(options);
+    let map = new mbgl.Map(options);
 
     map.load(require('./styles/style.json'));
 
     const renderOptions: RenderOptions = {
         zoom: 4,
-        width: 512,
-        height: 512,
+        width: 1920,
+        height: 1080,
         center: [coordinates.lon, coordinates.lat],
         bearing: 0,
         pitch: 0,
@@ -44,7 +44,7 @@ export function getMapImage(coordinates: Coordinates) {
 
         map.release();
 
-        var image = sharp(buffer, {
+        let image = sharp(buffer, {
             raw: {
                 width: renderOptions.width,
                 height: renderOptions.height,
@@ -53,7 +53,7 @@ export function getMapImage(coordinates: Coordinates) {
         });
 
         // create folder if it doesn't exist
-        var dir = './output';
+        let dir = './output';
         if (!fs.existsSync(dir)){
             fs.mkdirSync(dir);
         }
