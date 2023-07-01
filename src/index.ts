@@ -1,3 +1,4 @@
+import { Request, Response, MapOptions, RenderOptions, Coordinates } from './types';
 var fs = require('fs');
 var path = require('path');
 var mbgl = require('@maplibre/maplibre-gl-native');
@@ -25,12 +26,17 @@ var options = {
 var map = new mbgl.Map(options);
 
 map.load(require('./styles/style.json'));
-  
+
+let coordinates: Coordinates = {
+    lat: 52.5200,
+    lon: 13.4050
+};
+
 const renderOptions: RenderOptions = {
-    zoom: 0,
+    zoom: 4,
     width: 512,
     height: 512,
-    center: [0, 0],
+    center: [coordinates.lon, coordinates.lat],
     bearing: 0,
     pitch: 0,
     classes: []
@@ -44,8 +50,8 @@ map.render(renderOptions, function(err: any, buffer: any) {
 
     var image = sharp(buffer, {
         raw: {
-            width: 512,
-            height: 512,
+            width: renderOptions.width,
+            height: renderOptions.height,
             channels: 4
         }
     });
@@ -61,13 +67,3 @@ map.render(renderOptions, function(err: any, buffer: any) {
         if (err) throw err;
     });
 });
-
-interface RenderOptions {
-    zoom: number;
-    width: number;
-    height: number;
-    center: [number, number];
-    bearing: number;
-    pitch: number;
-    classes: string[];
-  }
