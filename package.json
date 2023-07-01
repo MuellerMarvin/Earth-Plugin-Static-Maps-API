@@ -21,6 +21,8 @@
     "typescript": "^5.1.6"
   },
   "dependencies": {
-    "@maplibre/maplibre-gl-native": "^5.2.0"
+    "@maplibre/maplibre-gl-native": "^5.2.0",
+    "axios": "^1.4.0",
+    "sharp": "^0.32.1"
   }
 }
