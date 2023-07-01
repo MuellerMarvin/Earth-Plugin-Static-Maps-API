@@ -26,7 +26,7 @@ var map = new mbgl.Map(options);
 
 map.load(require('./styles/style.json'));
   
-  const renderOptions: RenderOptions = {
+const renderOptions: RenderOptions = {
     zoom: 0,
     width: 512,
     height: 512,
@@ -34,7 +34,7 @@ map.load(require('./styles/style.json'));
     bearing: 0,
     pitch: 0,
     classes: []
-  };
+};
   
 
 map.render(renderOptions, function(err: any, buffer: any) {
