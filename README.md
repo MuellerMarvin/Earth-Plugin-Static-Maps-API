@@ -1,4 +1,4 @@
-# Earth Plugin Static API
+# Earth Plugin Static Maps API
 
 This is a future service in the Earth Plugin architecture.
 
