@@ -39,8 +39,14 @@ map.render({zoom: 0}, function(err: any, buffer: any) {
         }
     });
 
+    // create folder if it doesn't exist
+    var dir = './output';
+    if (!fs.existsSync(dir)){
+        fs.mkdirSync(dir);
+    }
+
     // Convert raw image buffer to PNG
-    image.toFile('image.png', function(err: any) {
+    image.toFile(dir +  '/image.png', function(err: any) {
         if (err) throw err;
     });
 });
