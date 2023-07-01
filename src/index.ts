@@ -25,8 +25,19 @@ var options = {
 var map = new mbgl.Map(options);
 
 map.load(require('./styles/style.json'));
+  
+  const renderOptions: RenderOptions = {
+    zoom: 0,
+    width: 512,
+    height: 512,
+    center: [0, 0],
+    bearing: 0,
+    pitch: 0,
+    classes: []
+  };
+  
 
-map.render({zoom: 0}, function(err: any, buffer: any) {
+map.render(renderOptions, function(err: any, buffer: any) {
     if (err) throw err;
 
     map.release();
@@ -50,3 +61,13 @@ map.render({zoom: 0}, function(err: any, buffer: any) {
         if (err) throw err;
     });
 });
+
+interface RenderOptions {
+    zoom: number;
+    width: number;
+    height: number;
+    center: [number, number];
+    bearing: number;
+    pitch: number;
+    classes: string[];
+  }
