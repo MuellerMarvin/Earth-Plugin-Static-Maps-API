@@ -1,3 +1,4 @@
+import { buffer } from 'stream/consumers';
 import { Request, Response, MapOptions, RenderOptions, Coordinates } from './types';
 const fs = require('fs');
 const path = require('path');
@@ -5,7 +6,7 @@ const mbgl = require('@maplibre/maplibre-gl-native');
 const sharp = require('sharp');
 const axios = require('axios');
 
-export function getMapImage(coordinates: Coordinates) {
+export function getMapImage(coordinates: Coordinates): Promise<Buffer> {
     let options = {
         request: function(req: any, callback: (error: any, response: any) => void) {
         // Log the request URL
@@ -36,31 +37,33 @@ export function getMapImage(coordinates: Coordinates) {
         bearing: 0,
         pitch: 0,
         classes: []
-    };
-    
+    };    
 
-    map.render(renderOptions, function(err: any, buffer: any) {
-        if (err) throw err;
-
-        map.release();
-
-        let image = sharp(buffer, {
-            raw: {
-                width: renderOptions.width,
-                height: renderOptions.height,
-                channels: 4
+    // Return a promise that resolves to a Buffer
+    return new Promise((resolve, reject) => {
+        map.render(renderOptions, function(err: any, buffer: Buffer) {
+            if (err) {
+                reject(err);  // if there's an error, reject the Promise
+                return;
             }
-        });
 
-        // create folder if it doesn't exist
-        let dir = './output';
-        if (!fs.existsSync(dir)){
-            fs.mkdirSync(dir);
-        }
+            map.release();
 
-        // Convert raw image buffer to PNG
-        image.toFile(dir +  '/image.png', function(err: any) {
-            if (err) throw err;
+            let image = sharp(buffer, {
+                raw: {
+                    width: renderOptions.width,
+                    height: renderOptions.height,
+                    channels: 4
+                }
+            });
+
+            image.toBuffer((err: Error, buffer: Buffer, info: any) => {
+                if (err) {
+                    reject(err);  // if there's an error, reject the Promise
+                } else {
+                    resolve(buffer);  // if everything is ok, resolve the Promise with the Buffer
+                }
+            });
         });
     });
 }
