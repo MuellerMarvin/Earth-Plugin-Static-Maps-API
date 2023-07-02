@@ -30,8 +30,8 @@ export function getMapImage(coordinates: Coordinates) {
 
     const renderOptions: RenderOptions = {
         zoom: 4,
-        width: 1920,
-        height: 1080,
+        width: 1000,
+        height: 1000,
         center: [coordinates.lon, coordinates.lat],
         bearing: 0,
         pitch: 0,
