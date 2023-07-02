@@ -8,11 +8,12 @@ dotenv.config();
 
 // Set up Express
 const port = process.env.PORT || 3000;
-const app = express();
+export const app = express();
 
 app.get('/', (req, res) => {
-    const image = getMapImage({ lat: 52.52, lon: 13.405 });
-    res.sendFile('/output/image.png', { root: '.' });
+    getMapImage({ lat: 52.52, lon: 13.405 }).then((imageBuffer: Buffer) => {
+        res.send(imageBuffer);
+    });
 });
 
 
