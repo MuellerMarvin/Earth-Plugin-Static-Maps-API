@@ -1,4 +1,4 @@
-import { Coordinates } from './types';
+import { Coordinates, MapOptions } from './types';
 import { getMapImage } from './maps';
 import express from 'express';
 import dotenv from 'dotenv';
@@ -11,7 +11,15 @@ const port = process.env.PORT || 3000;
 export const app = express();
 
 app.get('/', (req, res) => {
-    getMapImage({ lat: 52.52, lon: 13.405 }).then((imageBuffer: any) => {
+    getMapImage({
+        center: { lat: 52.517284915231926, long: 13.376082860012847 },
+        zoom: 16,
+        width: 1280,
+        height: 720,
+        bearing: 50,
+        pitch: 40
+    }).then((imageBuffer: any) => {
+        res.setHeader('Content-Type', 'image/png');
         res.send(imageBuffer);
     });
 });

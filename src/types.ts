@@ -8,8 +8,12 @@ export interface Response {
 }
 
 export interface MapOptions {
-    request: (req: Request, callback: (error?: any, response?: Response) => void) => void;
-    ratio: number;
+    center: Coordinates;
+    zoom: number;
+    width: number;
+    height: number;
+    bearing: number;
+    pitch: number;
 }
 
 export interface RenderOptions {
@@ -24,5 +28,5 @@ export interface RenderOptions {
 
 export interface Coordinates {
     lat: number;
-    lon: number;
+    long: number;
 }
