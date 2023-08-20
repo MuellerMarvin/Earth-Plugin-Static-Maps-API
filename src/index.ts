@@ -11,7 +11,7 @@ const port = process.env.PORT || 3000;
 export const app = express();
 
 app.get('/', (req, res) => {
-    getMapImage({ lat: 52.52, lon: 13.405 }).then((imageBuffer: Buffer) => {
+    getMapImage({ lat: 52.52, lon: 13.405 }).then((imageBuffer: any) => {
         res.send(imageBuffer);
     });
 });
