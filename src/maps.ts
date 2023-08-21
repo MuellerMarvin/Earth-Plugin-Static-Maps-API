@@ -10,7 +10,7 @@ const browser = puppeteer.launch({ headless: 'new' });
 export async function getMapImage(mapOptions: MapOptions): Promise<any> {
     return new Promise(async (resolve, reject) => {
         // Set up browser window and page
-        const browser = await puppeteer.launch({ headless: false });
+        const browser = await puppeteer.launch({ headless: 'new' });
         const page = await browser.newPage();
         await page.setViewport({width: 1280, height: 720});
 
