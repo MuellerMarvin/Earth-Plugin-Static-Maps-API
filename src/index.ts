@@ -7,7 +7,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 // Set up Express
-const port = process.env.PORT || 3000;
+const isTestEnvironment = process.env.NODE_ENV === 'test';
+const port = isTestEnvironment ? 0 : (process.env.PORT || 3000);
 export const app = express();
 
 app.get('/', (req, res) => {
