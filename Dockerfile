@@ -1,5 +1,5 @@
 # Use an official Node.js runtime as the base image
-FROM node:latest
+FROM ghcr.io/puppeteer/puppeteer:latest
 
 # Set the working directory in the container
 WORKDIR /usr/src/app
