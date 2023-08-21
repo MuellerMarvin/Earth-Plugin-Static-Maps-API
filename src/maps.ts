@@ -9,7 +9,7 @@ let browserInstance: Browser | null = null;
 
 async function getBrowserInstance(): Promise<Browser> {
     if (!browserInstance) {
-        browserInstance = await puppeteer.launch({ headless: true }); // 'headless' should be a boolean
+        browserInstance = await puppeteer.launch({ headless: 'new' }); // 'headless' should be a boolean
     }
     return browserInstance;
 }
