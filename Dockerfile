@@ -23,4 +23,4 @@ ENV PORT 8080
 EXPOSE 8080
 
 # Start the application
-CMD ["npm", "start:prod"]
+CMD ["npm", "start"]
