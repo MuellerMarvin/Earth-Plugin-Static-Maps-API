@@ -7,7 +7,8 @@
     "start:prod": "npm start",
     "start": "npm run build && node build/index.js",
     "start:dev": "npx nodemon",
-    "build": "rimraf ./build && tsc",
+    "build": "rimraf ./build && tsc && npm run copy-templates",
+    "copy-templates": "ncp src/puppeteer-templates build/puppeteer-templates",
     "test": "jest",
     "test:watch": "jest --watch"
   },
@@ -19,6 +20,7 @@
     "@types/node": "^20.3.2",
     "@types/supertest": "^2.0.12",
     "jest": "^29.5.0",
+    "ncp": "^2.0.0",
     "nodemon": "^2.0.22",
     "rimraf": "^5.0.1",
     "supertest": "^6.3.3",
