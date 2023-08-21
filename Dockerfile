@@ -1,36 +1,26 @@
-# Use the official Node.js image as a parent image
-FROM node:latest AS build
-
-# Set the working directory in the container
-WORKDIR /usr/src/app
-
-# Copy the package.json and package-lock.json to the container
-COPY package*.json ./
-
-# Install the project dependencies
-RUN npm install
-
-# Copy the rest of the application code into the container
-COPY . .
-
-# Build the TypeScript project
-RUN npm run build
-
-# Start a new stage to have a clean image without the devDependencies
+# Use an official Node.js runtime as the base image
 FROM node:latest
 
 # Set the working directory in the container
 WORKDIR /usr/src/app
 
-# Copy the built files and package.json from the build stage
-COPY --from=build /usr/src/app/build ./build
-COPY --from=build /usr/src/app/package*.json ./
+# Copy package.json and package-lock.json to the container
+COPY package*.json ./
 
-# Install only production dependencies
-RUN npm install --only=production
+# Install production dependencies only
+RUN npm ci --only=production
+
+# Copy the entire project to the container
+COPY . .
+
+# Build the TypeScript project
+RUN npm run build
+
+# Set the environment variable for Google Cloud Run to listen on port 8080
+ENV PORT 8080
 
 # Expose port 8080 for Google Cloud Run
 EXPOSE 8080
 
-# Define the command to run the app
+# Start the application
 CMD ["npm", "start:prod"]
