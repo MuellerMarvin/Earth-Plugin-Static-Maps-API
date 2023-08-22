@@ -2,7 +2,8 @@
 FROM ghcr.io/puppeteer/puppeteer:latest
 
 # Set the working directory in the container
-WORKDIR /usr/src/app
+USER pptruser
+WORKDIR /home/pptruser/src/app
 
 # Copy package.json and package-lock.json to the container
 COPY package*.json ./
