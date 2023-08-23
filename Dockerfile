@@ -24,5 +24,8 @@ ENV PORT 8080
 # Expose port 8080 for Google Cloud Run
 EXPOSE 8080
 
+# Switch back to the non-root user
+USER pptruser
+
 # Start the application
 CMD ["npm", "start"]
