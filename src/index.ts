@@ -12,14 +12,16 @@ const port = isTestEnvironment ? 0 : (process.env.PORT || 3000);
 export const app = express();
 
 app.get('/', (req, res) => {
-    getMapImage({
-        center: { lat: 52.517284915231926, long: 13.376082860012847 },
-        zoom: 16,
-        width: 1280,
-        height: 720,
-        bearing: 50,
-        pitch: 40
-    }).then((imageBuffer: any) => {
+    let mapOptions: MapOptions = {
+        center: req.body.center || { lat: 52.517284915231926, long: 13.376082860012847 },
+        zoom: req.body.zoom || 16,
+        width: req.body.width || 1280,
+        height: req.body.height || 720,
+        bearing: req.body.bearing || 50,
+        pitch: req.body.pitch || 40
+    };
+
+    getMapImage(mapOptions).then((imageBuffer: any) => {
         res.setHeader('Content-Type', 'image/png');
         res.send(imageBuffer);
     });

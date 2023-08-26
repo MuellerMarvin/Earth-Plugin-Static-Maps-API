@@ -37,7 +37,7 @@ export async function getMapImage(mapOptions: MapOptions): Promise<any> {
         await page.setContent(htmlContent);
 
         // Wait for the map to load
-        await page.waitForTimeout(process.env.MAPBOX_RENDER_DELAY || 5000);
+        await page.waitForTimeout(Number(process.env.MAPBOX_RENDER_DELAY) || 5000);
 
         const screenshotBuffer = await page.screenshot({ type: 'png' });
 
