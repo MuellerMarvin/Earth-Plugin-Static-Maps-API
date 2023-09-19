@@ -13,7 +13,7 @@ export const app = express();
 
 app.get('/', (req, res) => {
     let mapOptions: MapOptions = {
-        center: req.body.center || { lat: 52.517284915231926, long: 13.376082860012847 },
+        center: req.body.center? || { lat: 52.517284915231926, long: 13.376082860012847 },
         zoom: req.body.zoom || 16,
         width: req.body.width || 1280,
         height: req.body.height || 720,
